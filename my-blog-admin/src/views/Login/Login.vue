@@ -10,12 +10,13 @@
                         <div class="card-body">
                             <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
                                 <el-form-item prop="username">
-                                    <el-input v-model="ruleForm.username" placeholder="请输入你的账号">
+                                    <el-input size="small" v-model="ruleForm.username" placeholder="请输入你的账号">
                                         <i slot="prefix" class="el-input__icon el-icon-user-solid"></i>
                                     </el-input>
                                 </el-form-item>
                                 <el-form-item prop="password">
                                     <el-input
+                                        size="small"
                                         v-model="ruleForm.password"
                                         type="password"
                                         placeholder="请输入你的秘密"
@@ -28,13 +29,14 @@
                                     type="primary"
                                     :loading="btnLoading"
                                     class="w-100"
+                                    size="small"
                                     @click="handleLogin"
                                 >立即登录</el-button>
                             </el-form>
                         </div>
                     </div>
                     <div class="tab-way text-white mt-3 float-right">
-                        <el-button size="medium" type="primary" @click="goRegister">注册</el-button>
+                        <el-button size="small" type="primary" @click="goRegister">注册</el-button>
                     </div>
                 </div>
             </div>

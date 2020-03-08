@@ -1,6 +1,13 @@
 <template>
   <div class="category-list">
-    <el-button class="mb-2" type="primary" size="mini" icon="el-icon-plus" @click="$router.push('/category/create')">新建分类</el-button>
+    <el-button
+      class="mb-2"
+      type="primary"
+      size="mini"
+      icon="el-icon-plus"
+      @click="$router.push('/category/create')"
+      >新建分类</el-button
+    >
     <el-table
       :data="items"
       style="width: 100%"
@@ -10,11 +17,26 @@
     >
       <el-table-column align="center" prop="_id" label="ID" width="250" />
       <!-- 子级分类 -->
-      <el-table-column align="center" prop="parent.name" label="上级分类" width="180" />
+      <el-table-column
+        align="center"
+        prop="parent.name"
+        label="上级分类"
+        width="180"
+      />
       <!-- 父级分类 -->
-      <el-table-column align="center" prop="name" label="分类名称" width="180" />
+      <el-table-column
+        align="center"
+        prop="name"
+        label="分类名称"
+        width="180"
+      />
       <!-- 分类图标 -->
-      <el-table-column align="center" prop="icon" label="分类图标" width="180" />
+      <el-table-column
+        align="center"
+        prop="icon"
+        label="分类图标"
+        width="180"
+      />
       <!-- 删除,编辑,添加二级分类 -->
       <el-table-column label="操作">
         <template slot-scope="scope">
@@ -41,6 +63,12 @@
         </template>
       </el-table-column>
     </el-table>
+    <!-- 分页 -->
+    <div class="p-3">
+      <el-pagination background layout="prev, pager, next" :total="100">
+      </el-pagination>
+    </div>
+
     <!-- 编辑弹出层 -->
     <el-dialog width="500px" title="编辑分类" :visible.sync="dialogFormVisible">
       <el-form :model="form">
@@ -86,10 +114,7 @@
         <el-button size="small" @click="dialogFormVisible = false"
           >取消</el-button
         >
-        <el-button
-          size="small"
-          type="primary"
-          @click="handleUpdata(form)"
+        <el-button size="small" type="primary" @click="handleUpdata(form)"
           >确认修改</el-button
         >
       </div>
@@ -104,13 +129,13 @@ export default {
       items: [],
       dialogFormVisible: false,
       form: {
-        _id:'',
-        name:'',
-        icon:'',
-        parent:{
-          _id:'',
-          name:'无上级分类',
-          icon:''
+        _id: "",
+        name: "",
+        icon: "",
+        parent: {
+          _id: "",
+          name: "无上级分类",
+          icon: ""
         }
       },
       formLabelWidth: "120px"
@@ -159,20 +184,20 @@ export default {
         });
     },
     // 编辑更新分类
-    handleUpdata(form){
-      this.$http.put(`rest/categories/${form._id}`, form)
+    handleUpdata(form) {
+      this.$http.put(`rest/categories/${form._id}`, form);
       this.dialogFormVisible = false;
       this.$message({
-        type:'success',
-        message:'更新成功'
-      })
+        type: "success",
+        message: "更新成功"
+      });
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.category-list{
+.category-list {
   background-color: #fff;
   padding: 10px;
   border-radius: 5px;

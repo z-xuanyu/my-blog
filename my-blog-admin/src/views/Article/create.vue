@@ -61,7 +61,7 @@
           style="width:80%"
           v-model="model.body"
           useCustomImageHandler
-          @imageAdded="handleImageAdded"
+          @image-added="handleImageAdded"
         ></vue-editor>
       </el-form-item>
       <!-- 发布,更新按钮 -->

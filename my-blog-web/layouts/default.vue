@@ -11,21 +11,51 @@
       width="200"
       class="d-md-none"
     >
-      <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
+      <v-list dense nav class="py-0">
+        <v-list-item two-line>
+          <v-list-item-avatar>
+            <img src="https://randomuser.me/api/portraits/men/81.jpg" />
+          </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
+            <v-list-item-title>轩钰</v-list-item-title>
+            <v-list-item-subtitle>只要心还跳</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
+        <!-- 换行 -->
+        <v-divider></v-divider>
+        <v-list-item link v-for="(item, index) in sideItems" :key="index">
+          <v-list-item-icon>
+            <v-icon dense>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>
+              {{ item.title }}
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <!-- 换行线 -->
+        <v-divider></v-divider>
+        <v-subheader>分类</v-subheader>
+        <!-- 分类 -->
+        <v-list-group color="white" v-for="item in items" :key="item._id">
+          <template v-slot:activator>
+            <v-list-item-content>
+              <v-list-item-title>
+                {{item.name}}
+              </v-list-item-title>
+            </v-list-item-content>
+          </template>
+          <v-list-item link :to="{name:'article-id',params:{id:nav.name},query:{tag_id:nav._id}}" v-for="(nav, index) in item.children" :key="index">
+            <v-list-item-icon>
+              <v-icon dense></v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>
+                {{nav.name}}
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-group>
       </v-list>
     </v-navigation-drawer>
     <!-- 顶部导航 -->
@@ -121,18 +151,6 @@ export default {
       drawer: false, //是否展开侧边栏
       fixed: false, //是否固定定位
       isShowSearch: false,
-      items: [
-        {
-          icon: "mdi-apps",
-          title: "首页",
-          to: "/"
-        },
-        {
-          icon: "mdi-chart-bubble",
-          title: "关于",
-          to: "/inspire"
-        }
-      ],
       miniVariant: false,
       title: "轩钰博客",
       icons: [
@@ -141,9 +159,33 @@ export default {
         "fa fa-google-plus",
         "fa fa-linkedin",
         "fa fa-instagram"
+      ],
+      sideItems: [
+        { title: "首页", icon: "mdi-home" },
+        { title: "仓库", icon: "fa fa-github" },
+        { title: "朋友", icon: "fa fa-gratipay" },
+        { title: "相册", icon: "fa fa-picture-o" },
+        { title: "日记", icon: "fa fa-sticky-note" },
+        { title: "归档", icon: "fa fa-file-text" },
+        { title: "留言", icon: "fa fa-comments" }
+      ],
+      items: [
+        
       ]
     };
-  }
+  },
+  created () {
+    this.getData();
+  },
+  methods: {
+    getData(){
+      this.$axios.$get('http://localhost:3000/web/api/category').then(res=>{
+        this.items = res
+      }).catch(()=>{
+        console.log("请求失败")
+      })
+    }
+  },
 };
 </script>
 <style lang="scss" scoped>

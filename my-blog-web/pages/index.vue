@@ -1,23 +1,13 @@
 <template>
   <v-layout>
     <v-container>
-      <!-- 首页轮播部分 -->
-      <div ref="carouselWidth">
-        <v-carousel cycle :height="carouseHeight" hide-delimiter-background show-arrows-on-hover>
-          <v-carousel-item v-for="(slide, i) in slides" :key="i">
-            <v-sheet :color="colors[i]" height="100%">
-              <v-row class="fill-height" align="center" justify="center">
-                <div class="display-3">{{ slide }} Slide</div>
-              </v-row>
-            </v-sheet>
-          </v-carousel-item>
-        </v-carousel>
-      </div>
+      <!-- 首页轮播 -->
+      <v-swiper></v-swiper>
       <!-- 文章列表 -->
       <article-list :articleList='articleList' title="最新文章"></article-list>
       <!-- 分页 -->
       <div class="text-center">
-        <v-pagination v-model="page" :length="15" :total-visible="7" circle></v-pagination>
+        <v-pagination v-model="page" :length="10" :total-visible="5" circle></v-pagination>
       </div>
     </v-container>
   </v-layout>
@@ -27,39 +17,43 @@
 import rightSide from "../components/rightSide";
 import leftSide from "../components/leftSide";
 import articleList from "../components/articleList"
-import axios from "axios";
+import vSwiper from "../components/v-swiper"
 export default {
-  asyncData() {
-    return axios
-      .get("http://localhost:3000/admin/api/rest/article")
-      .then(res => {
-        return { articleList: res.data.reverse() };
-      });
-  },
   components: {
     rightSide,
     leftSide,
-    articleList
+    articleList,
+    vSwiper
   },
-  mounted() {
-    const carouselWidth = this.$refs.carouselWidth.offsetWidth;
-    if (carouselWidth < 400) {
-      this.carouseHeight = 150;
-    }
+  created(){
+    this.getData()
   },
   data() {
     return {
-      carouseHeight: "250",
       page: 1, //分页
-      slides: ["First", "Second", "Third", "Fourth", "Fifth"],
-      colors: [
-        "indigo",
-        "warning",
-        "pink darken-2",
-        "red lighten-1",
-        "deep-purple accent-4"
-      ]
+      articleList:[],
     };
+  },
+  methods:{
+    getData(){
+      this.$axios.$get('http://localhost:3000/web/api/arcitle',{
+        params:{
+          num:5,
+          page:this.page
+        }
+      }).then((res)=>{
+        const articleData = res.sort((a,b)=>{
+          return Date.parse(b.updatedAt) - Date.parse(a.updatedAt)
+        })
+        this.articleList = articleData
+      })
+    }
+  },
+  watch:{
+    // 监听分页变化
+    page:function(){
+      this.getData()
+    }
   }
 };
 </script>

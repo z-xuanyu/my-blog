@@ -35,17 +35,17 @@
       </v-tabs>
       <v-tabs-items v-model="tab">
         <v-tab-item v-for="i in 3" :key="i" :value="'tab-' + i">
-          <v-row v-for="(item,index) in 5" :key="index">
+          <v-row v-for="(item,index) in hotArticle" :key="index">
             <v-col cols="3" class="pl-4">
               <v-avatar>
                 <img
-                  src="https://cdn.vuetifyjs.com/images/john.jpg"
+                  :src="item.pic"
                   alt="John"
                 />
               </v-avatar>
             </v-col>
             <v-col cols="9">
-              <h5>handsome —— 一款typecho主题</h5>
+              <h5>{{item.title}}</h5>
               <div class="d-flex">
                 <v-icon size="12">fa fa-comment-o</v-icon>
                 <span class="text-12 ml-2">4545</span>
@@ -138,9 +138,19 @@ export default {
         "Css",
         "JavaSrcipt",
         "微信小程序"
-      ]
+      ],
+      hotArticle:[]
     };
-  }
+  },
+  created () {
+    this.getHotArticle();
+  },
+  methods: {
+   async getHotArticle() {
+      const result = await this.$axios.$get('http://localhost:3000/web/api/arcitle')
+      this.hotArticle = result.splice(3)
+    }
+  },
 };
 </script>
 

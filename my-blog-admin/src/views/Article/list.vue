@@ -13,20 +13,10 @@
       <el-table-column prop="title" label="文章标题" width="350px">
       </el-table-column>
       <!-- 文章发布时间 -->
-      <el-table-column
-        align="center"
-        prop="createdAt"
-        label="发布时间"
-        width="120"
-      >
-      </el-table-column>
-      <!-- 最新修改 -->
-      <el-table-column
-        align="center"
-        prop="updatedAt"
-        label="最近更新时间"
-        width="150"
-      >
+      <el-table-column align="center" label="发布时间" width="150">
+        <template slot-scope="scope">
+          {{ scope.row.createdAt | date }}
+        </template>
       </el-table-column>
       <!-- 文章分类 -->
       <el-table-column align="center" label="所属分类" width="150px">
@@ -77,6 +67,7 @@
 </template>
 
 <script>
+import dayjs from "dayjs";
 export default {
   data() {
     return {
@@ -100,13 +91,21 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(async () => {
-        await this.$http.delete(`http://localhost:3000/admin/api/rest/articles/${row._id}`);
+        await this.$http.delete(
+          `http://localhost:3000/admin/api/rest/articles/${row._id}`
+        );
         this.$message({
           type: "success",
           message: "删除成功!"
         });
         this.fetch();
       });
+    }
+  },
+  filters: {
+    // 处理时间的格式化的过滤器
+    date(val) {
+      return dayjs(val).format("YYYY-MM-DD HH:mm:ss");
     }
   }
 };

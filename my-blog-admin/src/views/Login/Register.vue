@@ -16,12 +16,13 @@
                                 label-width="100px"
                             >
                                 <el-form-item label="用户名：" prop="username">
-                                    <el-input v-model="ruleForm.username" placeholder="请输入你的账号"></el-input>
+                                    <el-input size="small" v-model="ruleForm.username" placeholder="请输入你的账号"></el-input>
                                 </el-form-item>
                                 <el-form-item label="密码：" prop="password">
                                     <el-input
                                         v-model="ruleForm.password"
                                         type="password"
+                                        size="small"
                                         placeholder="请输入你的密码"
                                     ></el-input>
                                 </el-form-item>
@@ -29,6 +30,7 @@
                                     <el-input
                                         v-model="ruleForm.confirmpassword"
                                         type="password"
+                                        size="small"
                                         placeholder="请确认你的密码"
                                     ></el-input>
                                 </el-form-item>
@@ -36,16 +38,17 @@
                                     <el-input
                                         v-model="ruleForm.email"
                                         type="email"
+                                        size="small"
                                         placeholder="请输入你的邮箱"
                                         @keyup.enter.native="handleRegister"
                                     ></el-input>
                                 </el-form-item>
-                                <el-button type="primary" class="w-100" @click="handleRegister">立即注册</el-button>
+                                <el-button size="small" type="primary" class="w-100" @click="handleRegister">立即注册</el-button>
                             </el-form>
                         </div>
                     </div>
                     <div class="tab-way text-white mt-3 float-right">
-                        <el-button size="medium" type="primary" @click="goLogin">去登陆</el-button>
+                        <el-button size="small" type="primary" @click="goLogin">去登陆</el-button>
                     </div>
                 </div>
             </div>

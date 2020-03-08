@@ -13,14 +13,15 @@ let CategorySchema = new Schema({
         ref: 'Category'
     }
 })
+// 子分类的虚拟属性
 CategorySchema.virtual('children', {
     localField: '_id',
     foreignField: 'parent',
     justOne: false,
     ref: 'Category'
 })
-
-CategorySchema.virtual('newsList', {
+// 关联分类下文章虚拟属性
+CategorySchema.virtual('articleList', {
     localField: '_id',
     foreignField: 'categories',
     justOne: false,

@@ -201,7 +201,7 @@ export default {
     console.log(params.id);
     console.log("监听到我了");
     return axios
-      .get(`http://localhost:3000/admin/api/rest/article/${params.id}`)
+      .get(`http://localhost:3000/web/api/arcitle/detail/${params.id}`)
       .then(res => {
         return { article: res.data };
       });

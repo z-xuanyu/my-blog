@@ -27,21 +27,21 @@
         <v-divider></v-divider>
         <v-subheader>分类</v-subheader>
         <!-- 分类 -->
-        <v-list-group color="white">
+        <v-list-group color="white" v-for="item in navItem" :key="item._id">
           <template v-slot:activator>
             <v-list-item-content>
               <v-list-item-title>
-                前端技术
+                {{item.name}}
               </v-list-item-title>
             </v-list-item-content>
           </template>
-          <v-list-item link v-for="(item,index) in 5" :key="index">
+          <v-list-item link :to="{name:'article-id',params:{id:nav.name},query:{tag_id:nav._id}}" v-for="(nav, index) in item.children" :key="index">
             <v-list-item-icon>
               <v-icon dense></v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>
-                NodeJs
+                {{nav.name}}
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
@@ -58,7 +58,11 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
+  created(){
+    this.getData()
+  },
   data() {
     return {
       sideItems: [
@@ -69,8 +73,16 @@ export default {
         { title: "日记", icon: "fa fa-sticky-note" },
         { title: "归档", icon: "fa fa-file-text" },
         { title: "留言", icon: "fa fa-comments" }
-      ]
-    };
+      ],
+      navItem:[]
+    }
+  },
+  methods:{
+    getData(){
+      axios.get('http://localhost:3000/web/api/category').then(res=>{
+        this.navItem = res.data
+      })
+    }
   }
 };
 </script>

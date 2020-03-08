@@ -1,6 +1,7 @@
 const express = require("express")
 const app = express()
 const cors = require("cors")
+const path = require('path')
 // 端口监听
 app.listen(3000, () => {
     console.log(`http://localhost:3000`)
@@ -16,6 +17,8 @@ mongoose.connect("mongodb://121.42.14.221:27017/blog", {
 }).catch(() => {
     console.log("数据库连接失败")
 })
+// 配置静态资源托管
+app.use('/uploads',express.static(path.join(__dirname,'uploads')))
 //接口路由配置
 const router = express.Router({
     mergeParams: true
@@ -27,6 +30,8 @@ app.use(express.urlencoded({
 }))
 // 跨越
 app.use(cors())
+// 引入web端路由
+require('./router/web/index')(app)
 // 首页路由
 app.get("/", (req, res) => {
     res.send("Hello Express")
@@ -74,9 +79,19 @@ router.get('/:id', async (req, res) => {
     res.send(model)
 })
 // 登录校验中间件
-// const authMiddleware = require('./middleware/auth')
+const authMiddleware = require('./middleware/auth')
 const resourceMiddleware = require('./middleware/resource')
-app.use('/admin/api/rest/:resource', resourceMiddleware(), router)
+app.use('/admin/api/rest/:resource', resourceMiddleware(),authMiddleware(), router)
+
+//文件上次接口
+const multer = require('multer')
+const upload = multer({ dest: __dirname + '/uploads'})
+
+app.post('/admin/api/upload', upload.single('file'), function (req, res, next) {
+    const file = req.file
+    file.url = `http://localhost:3000/uploads/${file.filename}`
+    res.send(file)
+  })
 // 错误处理函数
 app.use(async (err, req, res, next) => {
     // console.log(err)
