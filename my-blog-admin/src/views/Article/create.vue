@@ -57,12 +57,7 @@
       </el-form-item>
       <!-- 文章详情内容 -->
       <el-form-item label="详情">
-        <vue-editor
-          style="width:80%"
-          v-model="model.body"
-          useCustomImageHandler
-          @image-added="handleImageAdded"
-        ></vue-editor>
+        <mavon-editor codeStyle="solarized-dark" ref="md" @save='save' @imgAdd='imgAdd' placeholder='开始你的灵魂创作吧' v-model="model.body" />
       </el-form-item>
       <!-- 发布,更新按钮 -->
       <el-form-item>
@@ -75,13 +70,9 @@
 </template>
 
 <script>
-import { VueEditor } from "vue2-editor";
 export default {
   props: {
     id: {}
-  },
-  components: {
-    VueEditor
   },
   data() {
     return {
@@ -94,12 +85,14 @@ export default {
     this.id && this.fetch();
   },
   methods: {
-    async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
-      const formData = new FormData();
-      formData.append("file", file);
-      const res = await this.$http.post("upload", formData);
-      Editor.insertEmbed(cursorLocation, "image", res.data.url);
-      resetUploader();
+    // 图片上传
+    imgAdd(pos, $file){
+        const formdata = new FormData();
+        formdata.append('image', $file);
+        this.$http.post('upload',formdata).then(res=>{
+          const $vm = this.$refs.md
+          $vm.$img2Url(pos, res.data.url);
+        })
     },
     async save() {
       // eslint-disable-next-line no-console

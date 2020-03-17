@@ -5,3 +5,15 @@ content-type: application/json
     "num":2,
     "page":0
 }
+###
+GET http://localhost:3000/web/api/article/commentInfo
+####
+POST http://localhost:3000/web/api/article/comment
+
+content-type: application/json
+{
+    "content":"文章不错哦!",
+}
+###
+GET http://localhost:3000/web/api/userInfo
+content-type: application/json

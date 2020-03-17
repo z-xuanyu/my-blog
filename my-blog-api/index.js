@@ -87,7 +87,7 @@ app.use('/admin/api/rest/:resource', resourceMiddleware(),authMiddleware(), rout
 const multer = require('multer')
 const upload = multer({ dest: __dirname + '/uploads'})
 
-app.post('/admin/api/upload', upload.single('file'), function (req, res, next) {
+app.post('/admin/api/upload', upload.single('image'), function (req, res, next) {
     const file = req.file
     file.url = `http://localhost:3000/uploads/${file.filename}`
     res.send(file)

@@ -8,8 +8,7 @@ export default {
   head: {
     titleTemplate: "%s - " + process.env.npm_package_name,
     title: process.env.npm_package_name || "",
-    meta: [
-      {
+    meta: [{
         charset: "utf-8"
       },
       {
@@ -22,16 +21,14 @@ export default {
         content: process.env.npm_package_description || ""
       }
     ],
-    link: [
-      {
+    link: [{
         rel: "icon",
         type: "image/x-icon",
         href: "/favicon.ico"
       },
       {
         rel: "stylesheet",
-        href:
-          "https://cdn.jsdelivr.net/npm/font-awesome@4.x/css/font-awesome.min.css"
+        href: "https://cdn.jsdelivr.net/npm/font-awesome@4.x/css/font-awesome.min.css"
       }
     ]
   },
@@ -39,7 +36,7 @@ export default {
    ** Customize the progress-bar color
    */
   loading: {
-    color: "#fff"
+    color: "red"
   },
   /*
    ** Global CSS
@@ -56,7 +53,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/axios',],
+  modules: ['@nuxtjs/axios', ],
   axios: {
     // proxyHeaders: false
   },

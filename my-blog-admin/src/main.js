@@ -7,6 +7,9 @@ import "./assets/style/icon.css"
 import Cookie from 'js-cookie'
 import axios from "axios"
 import http from "./api/http"
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+Vue.use(mavonEditor)
 Vue.prototype.$http = http
 Vue.config.productionTip = false
 Vue.prototype.$Cookie = Cookie

@@ -1,7 +1,7 @@
 <template>
   <v-container class="article-list">
     <slot name="title">
-        <h1 class="title">{{title}}</h1>
+      <h1 class="title">{{ title }}</h1>
     </slot>
     <v-row>
       <v-col
@@ -94,9 +94,9 @@ export default {
       type: Array,
       default: []
     },
-    title:{
-        type:String,
-        default:'文章列表'
+    title: {
+      type: String,
+      default: "文章列表"
     }
   },
   filters: {
