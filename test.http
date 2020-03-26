@@ -1,3 +1,5 @@
+
+
 GET http://localhost:3000/web/api/arcitle HTTP/1.1
 content-type: application/json
 
@@ -14,6 +16,10 @@ content-type: application/json
 {
     "content":"文章不错哦!",
 }
-###
-GET http://localhost:3000/web/api/userInfo
 content-type: application/json
+###
+DELETE http://localhost:3000/admin/api/ads/delete HTTP/1.1
+content-type: application/json
+{
+    id:"5e7975fda17083688fc25077"
+}

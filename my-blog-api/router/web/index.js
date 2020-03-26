@@ -23,6 +23,7 @@ module.exports = app => {
             num,
             page
         } = req.query
+        console.log(page)
         const resul = await Arcitle.find().populate('categories').skip(num * (page - 1)).limit(num * 1)
         if (!resul.length) {
             res.send({

@@ -122,8 +122,38 @@ export default {
                     ]
                 },
                 {
-                    icon: "el-icon-s-custom",
+                    icon: "el-icon-link",
                     index: "5",
+                    title: "友情链接",
+                    subs: [
+                        {
+                            index: "/link/create",
+                            title: "添加链接"
+                        },
+                        {
+                            index: "/link/list",
+                            title: "链接列表"
+                        }
+                    ]
+                },
+                {
+                    icon: "el-icon-s-comment",
+                    index: "6",
+                    title: "评论管理",
+                    subs: [
+                        {
+                            index: "/commnet/audited",
+                            title: "已审核"
+                        },
+                        {
+                            index: "/comment/unreviewed",
+                            title: "未审核"
+                        }
+                    ]
+                },
+                {
+                    icon: "el-icon-s-tools",
+                    index: "7",
                     title: "基本配置",
                     subs: [
                         {
@@ -131,12 +161,7 @@ export default {
                             title: "博客配置"
                         }
                     ]
-                },
-                {
-                    icon: "el-icon-s-finance",
-                    index: "6",
-                    title: "评论管理"
-                },
+                }
             ]
         };
     },

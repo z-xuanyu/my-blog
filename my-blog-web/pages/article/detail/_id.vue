@@ -80,7 +80,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import hljs from "highlight.js";
 import dayjs from "dayjs"
 import "highlight.js/styles/solarized-dark.css";
@@ -103,12 +102,11 @@ marked.setOptions({
   smartypants: false
 });
 export default {
-  asyncData({ params }) {
-    return axios
-      .get(`http://localhost:3000/web/api/arcitle/detail/${params.id}`)
-      .then(res => {
-        return { article: res.data };
-      });
+  async asyncData({ $axios,params }) {
+    const result = await $axios.$get(`http://localhost:3000/web/api/arcitle/detail/${params.id}`)
+    return {
+      article:result
+    }
   },
   components: {
     articleComment,
@@ -138,6 +136,7 @@ export default {
     }
   },
   computed: {
+    // markdown 文本渲染处理
     compiledMarkdown() {
       return marked(this.article.body);
     }
@@ -146,62 +145,5 @@ export default {
 </script>
 
 <style lang="scss">
-.article-detail-page {
-  .article-body {
-    // 文章内容图片样式修改
-    pre {
-      border-radius: 4px;
-    }
-    code {
-      background-color: inherit;
-      color: inherit;
-      font-size: 12px;
-      .hljs-keyword {
-        color: #859900;
-      }
-      .hljs-title {
-        color: #268bd2;
-      }
-      .hljs-params {
-        color: #df5320;
-      }
-      .hljs-regexp {
-        color: #2aa198;
-      }
-    }
-    img {
-      width: 100%;
-      border-radius: 4px;
-    }
-    // 文章内代码块样式
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      margin-bottom: 10px !important;
-      padding-left: 10px;
-      border-left: 5px solid #9466ff;
-      background: #f0f2f7;
-    }
-  }
-  .article-content {
-    border-radius: 4px;
-    color: #333;
-  }
-  .article-comment {
-    color: #333;
-    border-radius: 4px;
-    .user-name{
-      color: #ffb929;
-    }
-    .subname{
-      color: #268bd2;
-    }
-  }
-  .article-detail-page .theme--dark.v-label {
-    color: #fff;
-  }
-}
+@import "@/assets/css/detail.scss"
 </style>

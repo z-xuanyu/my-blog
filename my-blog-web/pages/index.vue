@@ -4,10 +4,15 @@
       <!-- 首页轮播 -->
       <v-swiper></v-swiper>
       <!-- 文章列表 -->
-      <article-list :articleList='articleList' title="最新文章"></article-list>
+      <article-list :articleList="articleList" title="最新文章"></article-list>
       <!-- 分页 -->
       <div class="text-center">
-        <v-pagination v-model="page" :length="10" :total-visible="5" circle></v-pagination>
+        <v-pagination
+          v-model="page"
+          :length="10"
+          :total-visible="5"
+          circle
+        ></v-pagination>
       </div>
     </v-container>
   </v-layout>
@@ -16,8 +21,8 @@
 <script>
 import rightSide from "../components/rightSide";
 import leftSide from "../components/leftSide";
-import articleList from "../components/articleList"
-import vSwiper from "../components/v-swiper"
+import articleList from "../components/articleList";
+import vSwiper from "../components/v-swiper";
 export default {
   components: {
     rightSide,
@@ -25,35 +30,26 @@ export default {
     articleList,
     vSwiper
   },
-  created(){
-    this.getData()
+  watchQuery: ['page'],  //监听参数字符串的更改,重新执行asyncData
+  // ssr
+  async asyncData(context) {
+    console.log(context.app)
+    const result = await context.app.$axios.$get(`http://localhost:3000/web/api/arcitle`, {
+      params: {
+        num: 5
+      }
+    });
+    return {
+      articleList: result.sort((a, b) => {
+        return Date.parse(b.updatedAt) - Date.parse(a.updatedAt);
+      })
+    };
   },
   data() {
     return {
       page: 1, //分页
-      articleList:[],
+      text:"恭喜你"
     };
-  },
-  methods:{
-    getData(){
-      this.$axios.$get('http://localhost:3000/web/api/arcitle',{
-        params:{
-          num:5,
-          page:this.page
-        }
-      }).then((res)=>{
-        const articleData = res.sort((a,b)=>{
-          return Date.parse(b.updatedAt) - Date.parse(a.updatedAt)
-        })
-        this.articleList = articleData
-      })
-    }
-  },
-  watch:{
-    // 监听分页变化
-    page:function(){
-      this.getData()
-    }
   }
 };
 </script>

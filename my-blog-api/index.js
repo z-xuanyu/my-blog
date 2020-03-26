@@ -32,6 +32,8 @@ app.use(express.urlencoded({
 app.use(cors())
 // 引入web端路由
 require('./router/web/index')(app)
+// 引入管理端路由
+require('./router/admin/index')(app)
 // 首页路由
 app.get("/", (req, res) => {
     res.send("Hello Express")
@@ -40,8 +42,6 @@ app.get("/", (req, res) => {
 app.post('/regist', require('./router/regist'))
 // 用户登陆验证
 app.get('/login', require('./router/login'))
-// 查看所有用户
-app.get("/users", require('./router/allusers'))
 
 // 创建资源
 router.post('/', async (req, res) => {
@@ -55,6 +55,8 @@ router.put('/:id', async (req, res) => {
 })
 // 删除资源
 router.delete('/:id', async (req, res) => {
+    const data = await req.Model.find({})
+    console.log(data)
     await req.Model.findByIdAndDelete(req.params.id)
     res.send({
         success: true
@@ -83,12 +85,12 @@ const authMiddleware = require('./middleware/auth')
 const resourceMiddleware = require('./middleware/resource')
 app.use('/admin/api/rest/:resource', resourceMiddleware(),authMiddleware(), router)
 
-//文件上次接口
+//图片上次接口
 const multer = require('multer')
 const upload = multer({ dest: __dirname + '/uploads'})
-
 app.post('/admin/api/upload', upload.single('image'), function (req, res, next) {
     const file = req.file
+    console.log(file)
     file.url = `http://localhost:3000/uploads/${file.filename}`
     res.send(file)
   })
