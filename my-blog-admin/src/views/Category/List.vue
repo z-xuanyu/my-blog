@@ -149,7 +149,7 @@ export default {
     // 获取数据
     async fetch() {
       const res = await this.$http.get(
-        "http://localhost:3000/admin/api/rest/categories"
+        "rest/categories"
       );
       this.items = res.data;
     },

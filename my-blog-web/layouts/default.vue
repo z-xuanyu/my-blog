@@ -145,6 +145,15 @@ export default {
     rightSide,
     leftSide
   },
+  created(){
+    this.getData()
+  },
+  methods: {
+    async getData() {
+      const res = await this.$axios.$get('category')
+      this.items = res
+    }
+  },
   data() {
     return {
       clipped: false,
@@ -173,19 +182,7 @@ export default {
         
       ]
     };
-  },
-  created () {
-    this.getData();
-  },
-  methods: {
-    getData(){
-      this.$axios.$get('http://localhost:3000/web/api/category').then(res=>{
-        this.items = res
-      }).catch(()=>{
-        console.log("请求失败")
-      })
-    }
-  },
+  }
 };
 </script>
 <style lang="scss" scoped>

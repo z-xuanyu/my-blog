@@ -1,7 +1,7 @@
 <!--
- * @Author: your name
+ * @Author: xuanyu
  * @Date: 2020-03-25 12:25:02
- * @LastEditTime: 2020-03-25 13:39:58
+ * @LastEditTime: 2020-04-02 13:13:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /my-blog/my-blog-admin/src/views/Links/create.vue
@@ -42,7 +42,14 @@
     },
     methods: {
       async save(){
+        const {status} = await this.$http.post('v2/link',this.model)
+        if(status === 200){
+          this.$message({
+          message: '恭喜你，添加成功！',
+          type: 'success'
+        });
         this.$router.push("/link/list")
+        }
       }
     },
   }

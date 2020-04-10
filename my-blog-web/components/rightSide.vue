@@ -147,7 +147,7 @@ export default {
   },
   methods: {
    async getHotArticle() {
-      const result = await this.$axios.$get('http://localhost:3000/web/api/arcitle')
+      const result = await this.$axios.$get('arcitle')
       this.hotArticle = result.splice(3)
     }
   },

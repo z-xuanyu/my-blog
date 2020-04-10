@@ -103,7 +103,7 @@ marked.setOptions({
 });
 export default {
   async asyncData({ $axios,params }) {
-    const result = await $axios.$get(`http://localhost:3000/web/api/arcitle/detail/${params.id}`)
+    const result = await $axios.$get(`arcitle/detail/${params.id}`)
     return {
       article:result
     }
@@ -122,6 +122,7 @@ export default {
     return {
       article: null,
       show: false,
+      article:{}
     };
   },
   methods: {

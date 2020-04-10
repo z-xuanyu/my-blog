@@ -98,7 +98,7 @@ export default {
             this.$refs.ruleForm.validate(val => {
                 if (val) {
                     this.$axios
-                        .post("http://localhost:3000/regist", this.ruleForm)
+                        .post("http://121.42.14.221:3001/regist", this.ruleForm)
                         .then(({ data }) => {
                             const code = data.code;
                             switch (code) {

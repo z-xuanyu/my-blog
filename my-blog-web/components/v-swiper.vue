@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-08 15:52:23
+ * @LastEditTime: 2020-04-10 11:38:23
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: /my-blog-web/components/v-swiper.vue
+ -->
 <template>
   <!-- 首页轮播部分 -->
   <div ref="carouselWidth">
@@ -37,11 +45,7 @@ export default {
         },{
           imgUrl:
             "https://yusi123.com/wp-content/uploads/2017/12/cakes-fruit-1062x708.jpg"
-        },
-        {
-          imgUrl:
-            "https://www.ihewro.com/usr/uploads/2020/03/1287765175.png"
-        },
+        }
       ]
     };
   },

@@ -1,3 +1,11 @@
+<!--
+ * @Author: xuanyu
+ * @Date: 2020-02-29 14:24:30
+ * @LastEditTime: 2020-04-10 11:53:08
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /my-blog-web/components/leftSide.vue
+ -->
 <template>
   <div class="navbar-side">
     <v-navigation-drawer style="transform:0" color="primary" width="200">
@@ -58,7 +66,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   created(){
     this.getData()
@@ -77,13 +84,12 @@ export default {
       navItem:[]
     }
   },
-  methods:{
-    getData(){
-      axios.get('http://localhost:3000/web/api/category').then(res=>{
-        this.navItem = res.data
-      })
+  methods: {
+    async getData() {
+      const res = await this.$axios.$get('category')
+      this.navItem = res
     }
-  }
+  },
 };
 </script>
 

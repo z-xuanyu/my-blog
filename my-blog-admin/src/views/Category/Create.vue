@@ -1,3 +1,11 @@
+<!--
+ * @Author: xuanyu
+ * @Date: 2020-02-24 15:56:37
+ * @LastEditTime: 2020-04-10 10:26:38
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /my-blog-admin/src/views/Category/Create.vue
+ -->
 <template>
   <div class="category-page">
     <el-form label-width="120px" @submit.native.prevent="save">
@@ -46,9 +54,9 @@ export default {
       // eslint-disable-next-line no-unused-vars
       let res
       if (this.id) {
-        res = await this.$http.put(`http://localhost:3000/admin/api/rest/categories/${this.id}`, this.model)
+        res = await this.$http.put(`rest/categories/${this.id}`, this.model)
       } else {
-        res = await this.$http.post('http://localhost:3000/admin/api/rest/categories', this.model)
+        res = await this.$http.post('rest/categories', this.model)
       }
       this.$router.push('/category/list')
       this.$message({
@@ -57,11 +65,11 @@ export default {
       })
     },
     async fetch(){
-      const res = await this.$http.get(`http://localhost:3000/admin/api/rest/categories/${this.id}`)
+      const res = await this.$http.get(`rest/categories/${this.id}`)
       this.model = res.data
     },
     async fetchParents(){
-      const res = await this.$http.get(`http://localhost:3000/admin/api/rest/categories`)
+      const res = await this.$http.get(`rest/categories`)
       this.parents = res.data
     },
   }

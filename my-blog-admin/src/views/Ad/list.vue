@@ -3,7 +3,11 @@
     <el-row class="bg-white p-3">
       <!-- 添加广告 -->
       <el-col class="mb-2">
-        <el-button @click="$router.push('/ad/create')" size="small" type="primary">
+        <el-button
+          @click="$router.push('/ad/create')"
+          size="small"
+          type="primary"
+        >
           <i class="el-icon-plus"></i>添加广告
         </el-button>
       </el-col>
@@ -32,8 +36,17 @@
           </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
-              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-              <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+              <el-button
+                size="mini"
+                @click="handleEdit(scope.$index, scope.row)"
+                >编辑</el-button
+              >
+              <el-button
+                size="mini"
+                type="danger"
+                @click="handleDelete(scope.$index, scope.row)"
+                >删除</el-button
+              >
             </template>
           </el-table-column>
         </el-table>
@@ -41,23 +54,51 @@
     </el-row>
     <!-- 弹出层 -->
     <el-dialog title="编辑" :visible.sync="dialogFormVisible">
-      <el-form :model="form">
-        <el-form-item label="ID" :label-width="formLabelWidth">
-          <el-input v-model="form.ID" size="small" autocomplete="off"></el-input>
+      <el-form :model="form" label-width="80px">
+        <el-form-item label="ID:">
+          <el-input
+            style="width:250px"
+            v-model="form._id"
+            size="small"
+          ></el-input>
         </el-form-item>
-        <el-form-item label="名称" :label-width="formLabelWidth">
-          <el-input v-model="form.name" size="small" autocomplete="off"></el-input>
+        <el-form-item label="名称:">
+          <el-input
+            style="width:250px"
+            v-model="form.name"
+            size="small"
+          ></el-input>
         </el-form-item>
-        <el-form-item label="图片" :label-width="formLabelWidth">
-          <img src alt />
+        <el-form-item label="图片:">
+          <el-upload
+            class="avatar-uploader"
+            :on-success="handleAvatarSuccess"
+            :show-file-list="false"
+            :action="$http.defaults.baseURL + '/upload'"
+            name="image"
+          >
+            <img v-if="form.image" :src="form.image" class="avatar" />
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
         </el-form-item>
-        <el-form-item label="跳转链接" :label-width="formLabelWidth">
-          <el-input v-model="form.ur" size="small" autocomplete="off"></el-input>
+        <el-form-item label="跳转链接:">
+          <el-input
+            style="width:250px"
+            v-model="form.url"
+            size="small"
+          ></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button size="small" @click="dialogFormVisible = false">取 消</el-button>
-        <el-button size="small" type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        <el-button size="small" @click="dialogFormVisible = false"
+          >取 消</el-button
+        >
+        <el-button
+          size="small"
+          type="primary"
+          @click="dialogFormVisible = false"
+          >确 定</el-button
+        >
       </div>
     </el-dialog>
   </div>
@@ -100,11 +141,16 @@ export default {
       this.list = arr;
     },
     // 编辑数据
-    handleEdit() {},
+    handleEdit(index, row) {
+      this.form = row;
+      // eslint-disable-next-line no-console
+      console.log(row);
+      this.dialogFormVisible = !this.dialogFormVisible;
+    },
     // 删除
     handleDelete(index, row) {
       // eslint-disable-next-line no-console
-      console.log(row);
+      console.log(row._id);
       this.$confirm(`是否确定要删除?`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -117,6 +163,10 @@ export default {
         });
         this.fetch();
       });
+    },
+    // 头像上传成功
+    handleAvatarSuccess(res, file) {
+      this.form.image = URL.createObjectURL(file.raw);
     }
   }
 };
@@ -126,5 +176,28 @@ export default {
   background-color: #ffffff;
   border-radius: 5px;
   overflow: hidden;
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409eff;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
 }
 </style>

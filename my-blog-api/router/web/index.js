@@ -1,9 +1,18 @@
+/*
+ * @Author: your name
+ * @Date: 2020-03-06 20:44:39
+ * @LastEditTime: 2020-03-27 10:53:18
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /my-blog/my-blog-api/router/web/index.js
+ */
 module.exports = app => {
     const router = require('express').Router()
     const Category = require('../../mongodb/models/Category')
     const Arcitle = require('../../mongodb/models/Article')
     const Comment = require('../../mongodb/models/Comment')
     const UsersUid = require('../../mongodb/models/userUid')
+    const Ad = require('../../mongodb/models/Ad')
     app.use('/web/api', router)
     app.use(require('express').json())
     // 分类路由
@@ -80,6 +89,11 @@ module.exports = app => {
     // 获取用户信息
     router.get('/userInfo',async (req,res)=>{
         const result = await UsersUid.find()
+        res.send(result)
+    })
+    // 广告列表
+    router.get('/ads/info',async (req,res)=>{
+        const result = await Ad.find()
         res.send(result)
     })
 }

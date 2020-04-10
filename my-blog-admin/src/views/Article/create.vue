@@ -98,12 +98,12 @@ export default {
       // eslint-disable-next-line no-console
       if (this.id) {
         await this.$http.put(
-          `http://localhost:3000/admin/api/rest/articles/${this.id}`,
+          `rest/articles/${this.id}`,
           this.model
         );
       } else {
         await this.$http.post(
-          "http://localhost:3000/admin/api/rest/articles",
+          "rest/articles",
           this.model
         );
       }
@@ -116,13 +116,13 @@ export default {
     },
     async fetch() {
       const res = await this.$http.get(
-        `http://localhost:3000/admin/api/rest/articles/${this.id}`
+        `rest/articles/${this.id}`
       );
       this.model = res.data;
     },
     async fetchCatgories() {
       const res = await this.$http.get(
-        `http://localhost:3000/admin/api/rest/categories`
+        `rest/categories`
       );
       this.categories = res.data;
     }

@@ -82,7 +82,7 @@ export default {
                         this.btnLoading = false;
                         this.$axios({
                             method: "GET",
-                            url: "http://localhost:3000/login",
+                            url: "http://121.42.14.221:3001/login",
                             params: this.ruleForm
                         }).then(({ data }) => {
                             const code = data.code;

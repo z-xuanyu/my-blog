@@ -12,9 +12,7 @@
       <v-col cols="2" md="1" sm="1" class="pr-0">
         <v-avatar>
           <img
-            :src="
-              userInfo.avatar || 'https://cdn.vuetifyjs.com/images/john.jpg'
-            "
+            src="https://cdn.vuetifyjs.com/images/john.jpg"
             alt="John"
           />
         </v-avatar>
@@ -39,9 +37,7 @@
       <v-col cols="2" md="1" sm="1" class="pr-0">
         <v-avatar>
           <img
-            :src="
-              userInfo.avatar || list.avatar
-            "
+            :src="list.avatar"
             alt="用户头像"
           />
         </v-avatar>
@@ -104,9 +100,8 @@
           <v-col cols="2" md="1" sm="1" class="pr-0 pb-0">
             <v-avatar>
               <img
-                :src="
-                  userInfo.avatar || 'https://cdn.vuetifyjs.com/images/john.jpg'
-                "
+                
+                src="https://cdn.vuetifyjs.com/images/john.jpg"
                 alt="John"
               />
             </v-avatar>
@@ -190,7 +185,9 @@ export default {
       showLogin: false,
       valid: false,
       activeIndex: null,
-      userInfo: {},
+      userInfo: {
+        
+      },
       name: "",
       nameRules: [
         v => !!v || "请输入昵称",
@@ -279,7 +276,7 @@ export default {
           url: this.url
         };
         const res = await this.$axios.$post(
-          "http://localhost:3000/web/api/userUid",
+          "userUid",
           data
         );
         if (res) {

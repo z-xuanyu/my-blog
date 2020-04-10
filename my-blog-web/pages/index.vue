@@ -1,3 +1,11 @@
+<!--
+ * @Author: xuanyu
+ * @Date: 2020-02-29 13:20:21
+ * @LastEditTime: 2020-04-10 10:05:30
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /my-blog-web/pages/index.vue
+ -->
 <template>
   <v-layout>
     <v-container>
@@ -33,8 +41,7 @@ export default {
   watchQuery: ['page'],  //监听参数字符串的更改,重新执行asyncData
   // ssr
   async asyncData(context) {
-    console.log(context.app)
-    const result = await context.app.$axios.$get(`http://localhost:3000/web/api/arcitle`, {
+    const result = await context.app.$axios.$get(`arcitle`, {
       params: {
         num: 5
       }

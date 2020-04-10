@@ -80,7 +80,7 @@ export default {
   methods: {
     async fetch() {
       const res = await this.$http.get(
-        "http://localhost:3000/admin/api/rest/articles"
+        "rest/articles"
       );
       this.articleData = res.data;
     },
@@ -92,7 +92,7 @@ export default {
         type: "warning"
       }).then(async () => {
         await this.$http.delete(
-          `http://localhost:3000/admin/api/rest/articles/${row._id}`
+          `rest/articles/${row._id}`
         );
         this.$message({
           type: "success",

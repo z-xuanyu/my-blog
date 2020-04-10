@@ -1,3 +1,11 @@
+<!--
+ * @Author: xuanyu
+ * @Date: 2020-03-06 19:41:54
+ * @LastEditTime: 2020-04-10 09:34:36
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /my-blog-web/pages/article/_id.vue
+ -->
 <template>
   <v-layout>
     <v-container>
@@ -29,7 +37,7 @@ export default {
   async asyncData({ $axios, query }) {
     //ssr 分类文章渲染
     const result = await $axios.$get(
-      `http://localhost:3000/web/api/arcitle/${query.tag_id}`
+      `arcitle/${query.tag_id}`
     );
     return {
       articleList: result.sort((a, b) => {

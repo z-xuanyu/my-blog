@@ -1,3 +1,11 @@
+/*
+ * @Author: xuanyu
+ * @Date: 2020-02-29 13:20:21
+ * @LastEditTime: 2020-04-10 09:53:15
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /my-blog-web/nuxt.config.js
+ */
 import colors from "vuetify/es5/util/colors";
 
 export default {
@@ -45,7 +53,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~/plugins/axios'],
   /*
    ** Nuxt.js dev-modules
    */
