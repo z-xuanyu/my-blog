@@ -20,7 +20,7 @@
     "axios": "^0.19.2",
     "dayjs": "^1.8.22",
     "highlight.js": "^9.18.1",
-    "marked": "^0.8.0",
+    "marked": "^4.0.10",
     "nuxt": "^2.0.0",
     "sass-loader": "^8.0.2",
     "v-emoji-picker": "^2.1.5"
